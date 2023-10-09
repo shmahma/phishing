@@ -1,8 +1,3 @@
-#FROM php:8.1-apache
-
-#COPY ./app/ /var/www/html/
-
-#RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 FROM python:3.8-alpine
  
@@ -17,6 +12,16 @@ RUN pip install -r requirements.txt
 
 COPY ./app/ /app
  
+RUN apk update && apk add openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:ansible' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
- 
-CMD ["tail","-f","/dev/null" ]
+ENV NOTVISIBLE "dans le profil des utilisateurs"
+RUN echo "export VISIBLE=now" >> /etc/profile
+RUN ssh-keygen -A 
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+

@@ -1,0 +1,8 @@
+---
+- name: Exécuter email_sender.py
+  hosts: mail
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+  tasks:
+    - name: Exécuter le script Python
+      command: python3 /mail/email_sender.py

@@ -32,8 +32,8 @@ def home():
         password1 = request.form['password1']
         password2 = request.form['password2']
 
-        cursor.execute("INSERT INTO Persons (PersonId, LastName, FirstName, Password1, Password2) VALUES (%s, %s, %s, %s, %s)",
-                       ('1', last_name, first_name, password1, password2))
+        cursor.execute("INSERT INTO Persons (LastName, FirstName, Password1, Password2) VALUES ( %s, %s, %s, %s)",
+                       (last_name, first_name, password1, password2))
 
         db.commit()
 

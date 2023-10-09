@@ -6,3 +6,5 @@ services:
     privileged: true
     ports:
       - "80:80"
+    volumes:
+      - /var/mysql:/root/mysql

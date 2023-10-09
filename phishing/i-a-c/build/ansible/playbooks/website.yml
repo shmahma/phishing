@@ -1,0 +1,8 @@
+---
+- name: Exécuter view.py
+  hosts: web
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+  tasks:
+    - name: Exécuter le script Python
+      command: python3 /app/view.py

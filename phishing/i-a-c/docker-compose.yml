@@ -7,13 +7,17 @@ services:
 
   mysql:
     restart: always
-    container_name: "mysql"
     ports:
       - "3306:3306"
     build: './build/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: "super-secret-password"
       MYSQL_DATABASE: "my-wonderful-website"
-
+    volumes:
+      - /root/mysql:/var/lib/mysql
   mail-server:
     build: './build/mail'
+
+  ansible:
+    build: './build/ansible'
+
