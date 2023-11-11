@@ -5,4 +5,4 @@
     ansible_python_interpreter: /usr/local/bin/python3
   tasks:
     - name: Exécuter le script Python
-      command: python3 /mail/email_sender.py
+      command: python3 /mail/email_sender.py "{{ recipient_email }}" "{{ ip }}"

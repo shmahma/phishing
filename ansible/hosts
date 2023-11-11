@@ -1,9 +1,5 @@
-[web]
-phishing-website-1
-
 [mail]
-phishing-mail-server-1
-
+mail
 [all:vars]
 ansible_ssh_user=root
 ansible_ssh_pass=ansible

@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+
+  ansible:
+    image: shmahma/ansible:phish
+    deploy:
+      labels:
+        - ansible
+      placement:
+        constraints:
+          - node.role == manager
+  mariadb:
+    depends_on:
+      - ansible
+    image: shmahma/mariadb:phish
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "super-secret-password"
+      MYSQL_DATABASE: "my-wonderful-website"
+    volumes:
+      - /var/mariadb:/var/lib/mysql
+    deploy:
+      labels:
+        - bdd
+      placement:
+        constraints:
+          - node.role == manager
+  flask:
+    image: shmahma/flask:phish
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 5s
+      placement:
+        constraints:
+          - node.role == worker
+
+  mail:
+    image: shmahma/mail:phish
+    ports:
+      - "22:22"
+    deploy:
+      labels:
+        - mail
+      placement:
+        constraints:
+          - node.role == worker
