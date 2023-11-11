@@ -1,0 +1,8 @@
+---
+- name: Exécuter ddos.py
+  hosts: dd_os
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+  tasks:
+    - name: Exécuter le script Python
+      command: python3 /ddos/ddos.py "{{ nb_req }}" "{{ url }}"

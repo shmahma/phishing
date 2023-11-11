@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  ansible:
+    image: shmahma/ansible:ddos
+    deploy:
+      labels:
+        - ansible
+      placement:
+        constraints:
+          - node.role == manager
+
+  ddos:
+    image: shmahma/ddos:ddos
+    ports:
+      - "22:22"
+    deploy:
+     replicas: 9
+     placement:
+        constraints:
+          - node.role == worker

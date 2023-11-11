@@ -1,10 +1,10 @@
 FROM python:3.8-alpine
 
-WORKDIR /mail
+WORKDIR /ddos
 
-COPY ./mail/ .
+COPY . .
 
-RUN apk update && apk add openssh-server 
+RUN apk update && apk add openssh-server && pip install requests 
 RUN mkdir /var/run/sshd
 RUN echo 'root:ansible' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
